@@ -30,7 +30,7 @@ public class UserDao {
 		
 		ps.close();
 		c.close();
-				
+	    			
 	}
 	
 	public User get(String id) throws ClassNotFoundException,SQLException{
@@ -84,6 +84,7 @@ public class UserDao {
 		System.out.println("DB 커넥션생성");
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection c  = DriverManager.getConnection("jdbc:mysql://gaedong2.iptime.org/springbook","spring","book");
+		System.out.println("DB 커넥션생성");
 		return c;
 	}
 }
