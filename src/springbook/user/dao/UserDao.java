@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 import springbook.user.domain.User;
 
-public class UserDao {
+public abstract class UserDao {
 
 	public void add(User user) throws ClassNotFoundException , SQLException{
 		
@@ -58,8 +58,10 @@ public class UserDao {
 		
 	}
 	
+	abstract protected Connection getConnection() throws ClassNotFoundException, SQLException ;
+	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		UserDao dao = new UserDao();
+		UserDao dao = new NUserDao();
 
 		User user = new User();
 		user.setId("whiteship");
@@ -80,11 +82,5 @@ public class UserDao {
 		System.out.println(user2.getId() + " 조회 성공");
 	}
 	
-	private Connection getConnection() throws ClassNotFoundException, SQLException{
-		System.out.println("DB 커넥션생성");
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection c  = DriverManager.getConnection("jdbc:mysql://gaedong2.iptime.org/springbook","spring","book");
-		System.out.println("DB 커넥션생성");
-		return c;
-	}
+	
 }
