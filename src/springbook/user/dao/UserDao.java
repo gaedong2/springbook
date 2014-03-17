@@ -13,12 +13,11 @@ import springbook.user.domain.User;
 public class UserDao {
 
 	public void add(User user) throws ClassNotFoundException , SQLException{
-		System.out.println("DB 커넥션생성");
-		Class.forName("com.mysql.jdbc.Driver");
+		
+		
 		
 		System.out.println("DB 커넥션");
-		Connection c  = DriverManager.getConnection(
-				"jdbc:mysql://gaedong2.iptime.org/springbook","spring","book");
+		Connection c  = getConnection();
 		
 		PreparedStatement ps = c.prepareStatement(
 				 "insert into users(id,name,password) values(?,?,?)");
@@ -35,9 +34,8 @@ public class UserDao {
 	}
 	
 	public User get(String id) throws ClassNotFoundException,SQLException{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection c  = DriverManager.getConnection(
-				"jdbc:mysql://gaedong2.iptime.org/springbook","spring","book");
+		
+		Connection c  = getConnection();
 		
 		PreparedStatement ps = c.prepareStatement(
 				 "select * from users where id = ?");
@@ -80,5 +78,12 @@ public class UserDao {
 		System.out.println(user2.getPassword());
 			
 		System.out.println(user2.getId() + " 조회 성공");
+	}
+	
+	private Connection getConnection() throws ClassNotFoundException, SQLException{
+		System.out.println("DB 커넥션생성");
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection c  = DriverManager.getConnection("jdbc:mysql://gaedong2.iptime.org/springbook","spring","book");
+		return c;
 	}
 }
